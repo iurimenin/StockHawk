@@ -44,6 +44,8 @@ public class AddStockDialog extends DialogFragment {
                 return true;
             }
         });
+
+        stock.setContentDescription(getString(R.string.a11y_stock));
         builder.setView(custom);
 
         builder.setMessage(getString(R.string.dialog_title));
@@ -66,6 +68,7 @@ public class AddStockDialog extends DialogFragment {
     }
 
     private void addStock() {
+        stock.setContentDescription(getString(R.string.a11y_stock_text, stock.getText()));
         Activity parent = getActivity();
         if (parent instanceof MainActivity) {
             ((MainActivity) parent).addStock(stock.getText().toString());

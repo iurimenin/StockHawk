@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
             }
         }).attachToRecyclerView(stockRecyclerView);
-
-
     }
 
     private boolean networkUp() {
@@ -99,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (!networkUp() && adapter.getItemCount() == 0) {
             swipeRefreshLayout.setRefreshing(false);
             error.setText(getString(R.string.error_no_network));
+            error.setContentDescription(getString(R.string.a11y_error, error.getText()));
             error.setVisibility(View.VISIBLE);
         } else if (!networkUp()) {
             swipeRefreshLayout.setRefreshing(false);
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else if (PrefUtils.getStocks(this).size() == 0) {
             swipeRefreshLayout.setRefreshing(false);
             error.setText(getString(R.string.error_no_stocks));
+            error.setContentDescription(getString(R.string.a11y_error, error.getText()));
             error.setVisibility(View.VISIBLE);
         } else {
             error.setVisibility(View.GONE);

@@ -1,10 +1,9 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Stock Hawk</string>
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
     <string name="pref_stocks_key">stocks</string>
-
 
     <string name="pref_display_mode_key">displayMode</string>
     <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
@@ -17,9 +16,7 @@
     <string name="default_stocks_microsoft">MSFT</string>
     <string name="default_stocks_facebook">FB</string>
 
-
     <string name="action_change_units">@string/pref_display_mode_key</string>
-
 
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
@@ -31,5 +28,14 @@
 
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
+
+    <!-- A11y -->
+    <string name="a11y_add_stock">Add Stock</string>
+    <string name="a11y_error">Error: <xliff:g id="condition">%1$s</xliff:g></string>
+    <string name="a11y_stock">Stock</string>
+    <string name="a11y_stock_text">Stock: <xliff:g id="high">%1$s</xliff:g></string>
+    <string name="a11y_symbol">Symbol: <xliff:g id="low">%1$s</xliff:g></string>
+    <string name="a11y_price">Price: <xliff:g id="low">%1$s</xliff:g></string>
+    <string name="a11y_change">Change: <xliff:g id="low">%1$s</xliff:g></string>
 
 </resources>
