@@ -27,6 +27,8 @@
     <string name="no_stocks">No stocks to show!</string>
     <string name="title_widget_detail">Stock Hawk</string>
 
+    <string name="toask_stock_invalid">The symbol %1$s is invalid!</string>"
+
     <!-- A11y -->
     <string name="a11y_add_stock">Add Stock</string>
     <string name="a11y_error">Error: <xliff:g id="condition">%1$s</xliff:g></string>
