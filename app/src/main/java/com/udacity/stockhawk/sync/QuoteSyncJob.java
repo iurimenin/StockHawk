@@ -40,7 +40,7 @@ public final class QuoteSyncJob {
     private static final int PERIOD = 300000;
     private static final int INITIAL_BACKOFF = 10000;
     private static final int PERIODIC_ID = 1;
-    private static final int YEARS_OF_HISTORY = 2;
+    private static final int YEARS_OF_HISTORY = 5;
 
     private QuoteSyncJob() {
     }
@@ -51,7 +51,7 @@ public final class QuoteSyncJob {
 
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
-        from.add(Calendar.YEAR, -YEARS_OF_HISTORY);
+        from.add(Calendar.WEEK_OF_YEAR, -YEARS_OF_HISTORY);
 
         try {
 
@@ -79,8 +79,8 @@ public final class QuoteSyncJob {
 
                 try {
                     Stock stock = quotes.get(symbol);
+                    String name = stock.getName();
                     StockQuote quote = stock.getQuote();
-
                     Float price = quote.getPrice().floatValue();
                     Float change = quote.getChange().floatValue();
                     Float percentChange = quote.getChangeInPercent().floatValue();
@@ -104,6 +104,7 @@ public final class QuoteSyncJob {
                     quoteCV.put(Contract.Quote.COLUMN_PERCENTAGE_CHANGE, percentChange);
                     quoteCV.put(Contract.Quote.COLUMN_ABSOLUTE_CHANGE, change);
                     quoteCV.put(Contract.Quote.COLUMN_HISTORY, historyBuilder.toString());
+                    quoteCV.put(Contract.Quote.COLUMN_NAME, name);
 
                     quoteCVs.add(quoteCV);
                 } catch (NullPointerException e) {

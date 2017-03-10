@@ -24,7 +24,6 @@ public final class PrefUtils {
         HashSet<String> defaultStocks = new HashSet<>(Arrays.asList(defaultStocksList));
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-
         boolean initialized = prefs.getBoolean(initializedKey, false);
 
         if (!initialized) {

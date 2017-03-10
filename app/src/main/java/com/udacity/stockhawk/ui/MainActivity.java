@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +82,33 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
             }
         }).attachToRecyclerView(stockRecyclerView);
+
+        RecyclerView.OnItemTouchListener itemTouchListener = new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_UP) {
+                    View childView = rv.findChildViewUnder(e.getX(), e.getY());
+                    String symbol = adapter.getSymbolAtPosition(rv.getChildAdapterPosition(childView));
+                    Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putCharSequence("symbol", symbol);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        };
+
+        stockRecyclerView.addOnItemTouchListener(itemTouchListener);
     }
 
     private boolean networkUp() {
