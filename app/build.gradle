@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.udacity.stockhawk"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -49,14 +49,19 @@ check {
     }
 }
 
+ext {
+    supportLibVersion = '25.1.0'
+    buterknife = '8.4.0'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.jakewharton:butterknife:${buterknife}"
+    apt "com.jakewharton:butterknife-compiler:${buterknife}"
     compile 'com.google.guava:guava:20.0'
     compile 'com.yahoofinance-api:YahooFinanceAPI:3.5.0'
     compile 'com.jakewharton.timber:timber:4.4.0'

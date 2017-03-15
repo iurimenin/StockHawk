@@ -16,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import com.udacity.stockhawk.sync.QuoteSyncJob;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         SwipeRefreshLayout.OnRefreshListener,
@@ -48,7 +46,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onClick(String symbol) {
-        Timber.d("Symbol clicked: %s", symbol);
+        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putCharSequence("symbol", symbol);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
@@ -82,33 +84,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
             }
         }).attachToRecyclerView(stockRecyclerView);
-
-        RecyclerView.OnItemTouchListener itemTouchListener = new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return true;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_UP) {
-                    View childView = rv.findChildViewUnder(e.getX(), e.getY());
-                    String symbol = adapter.getSymbolAtPosition(rv.getChildAdapterPosition(childView));
-                    Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putCharSequence("symbol", symbol);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        };
-
-        stockRecyclerView.addOnItemTouchListener(itemTouchListener);
     }
 
     private boolean networkUp() {
